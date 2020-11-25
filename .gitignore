@@ -1,0 +1,11 @@
+/node_modules
+
+.DS_Store
+
+client/build
+
+/media/uploads/*
+
+/media/uploads/image_previews/*
+
+.env
