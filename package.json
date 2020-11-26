@@ -7,7 +7,7 @@
 		"client": "cd client && REACT_APP_PORT= npm run start",
 		"server": "nodemon --exec babel-node server.js",
 		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-		"start": "node --exec babel-node server.js",
+		"start": "babel-node server.js",
 		"dev:server": "cd client && npm run build && cd .. && npm run start",
 		"heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
 	},
