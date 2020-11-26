@@ -4,7 +4,7 @@ const util = require('util');
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, 'media/uploads/');
+		cb(null, `${__dirname}/../media/uploads/`);
 	},
 	filename: (req, file, cb) => {
 		const match = [

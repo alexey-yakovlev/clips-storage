@@ -1,5 +1,5 @@
 export const isAuthenticatedMiddleware = (req, res, next) => {
-	console.log('!!!!!!!', req.user, req.session.passport);
+	console.log('USER & SESSION DATA', req.user, req.session.passport);
 	if (req.isAuthenticated()) {
 		return next();
 	}

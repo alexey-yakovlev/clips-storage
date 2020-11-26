@@ -1,5 +1,8 @@
+import 'regenerator-runtime/runtime.js';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({
+	path: `${__dirname}/.env`,
+});
 import solution from './solution';
 import { connectDb } from './models';
 

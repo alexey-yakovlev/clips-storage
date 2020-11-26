@@ -1,8 +1,10 @@
 import dotenv from 'dotenv';
+dotenv.config({
+	path: `${__dirname}/.env`,
+});
 import { Clip } from '../models';
 import generatePreview from '../utils/generatePreview';
 import { uploadFilesMiddleware } from '../middleware/uploadFiles';
-dotenv.config();
 
 export const multipleUpload = async (req, res) => {
 	try {
@@ -16,7 +18,7 @@ export const multipleUpload = async (req, res) => {
 		req.files.forEach(async (file) => {
 			const { filename } = file;
 			const guid = file.filename.split('.')[0];
-			const virtFilePath = `http://localhost:${process.env.PORT}/clip/${filename}`;
+			const virtFilePath = `${req.headers.origin}/clip/${filename}`;
 			try {
 				generatePreview(file.path, guid);
 			} catch (error) {
@@ -27,7 +29,7 @@ export const multipleUpload = async (req, res) => {
 				userId: req.user.id,
 				title: file.originalname,
 				filePath: virtFilePath,
-				previewPath: `http://localhost:${process.env.PORT}/clip/image_previews/${guid}.jpg`,
+				previewPath: `${req.headers.origin}/clip/image_previews/${guid}.jpg`,
 			});
 
 			try {

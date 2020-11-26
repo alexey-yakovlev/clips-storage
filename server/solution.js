@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
@@ -11,6 +12,10 @@ import connectRedis from 'connect-redis';
 import cors from 'cors';
 import { signIn, signUp, upload, clips } from './routes';
 
+dotenv.config({
+	path: `${__dirname}/.env`,
+});
+
 export default () => {
 	const app = new express();
 	app.use(morgan('combined'));
@@ -19,6 +24,9 @@ export default () => {
 	const isDev = process.env.NODE_ENV !== 'production';
 	const redisClient = isDev ? redis.createClient() : redis.createClient(process.env.REDIS_URL);
 	redisClient.on('error', console.error);
+
+	app.use(bodyParser.urlencoded({ extended: true }));
+	app.use(bodyParser.json());
 
 	// app.use(
 	// 	cors({
@@ -29,8 +37,6 @@ export default () => {
 	// 		credentials: true,
 	// 	})
 	// );
-	app.use(bodyParser.urlencoded({ extended: true }));
-	app.use(bodyParser.json());
 
 	// app.use(function (req, res, next) {
 	// 	res.header('Access-Control-Allow-Credentials', true);
@@ -67,7 +73,7 @@ export default () => {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.use('/clip', isAuthenticatedMiddleware, express.static('media/uploads'));
+	app.use('/clip', isAuthenticatedMiddleware, express.static(`${__dirname}/media/uploads`));
 
 	app.use('/api/signIn', signIn);
 	app.use('/api/signUp', signUp);
@@ -81,9 +87,9 @@ export default () => {
 	});
 
 	if (process.env.NODE_ENV === 'production') {
-		app.use(express.static(path.join(__dirname, 'client/build')));
+		app.use(express.static(path.join(__dirname, '..', 'client/build')));
 		app.get('*', (req, res) => {
-			res.sendFile(path.join(__dirname, 'client/build', 'index.html'), (err) => {
+			res.sendFile(path.join(__dirname, '..', 'client/build', 'index.html'), (err) => {
 				if (err) next(err);
 				else console.log('Sended index.html');
 			});

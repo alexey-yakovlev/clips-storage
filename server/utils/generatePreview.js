@@ -6,9 +6,7 @@ const width = 355;
 const height = 200;
 
 const generatePreview = (filePathOnServer, guid) => {
-	const tmpFile = createWriteStream(
-		`media/uploads/image_previews/${guid}.jpg`
-	);
+	const tmpFile = createWriteStream(`${__dirname}/../media/uploads/image_previews/${guid}.jpg`);
 	const ffmpeg = spawn(ffmpegPath, [
 		'-ss',
 		0,

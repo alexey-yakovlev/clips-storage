@@ -1,11 +1,12 @@
-/node_modules
+node_modules
 
 .DS_Store
 
-client/build
+/client/build
 
-/media/uploads/*
+/dist-server
 
-/media/uploads/image_previews/*
+/server/media/**/*.jpg
+/server/media/uploads/*.*
 
 .env
