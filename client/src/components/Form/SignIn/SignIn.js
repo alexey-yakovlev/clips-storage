@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Form from '../Form';
+import { Spinner } from 'reactstrap';
 import '../form.css';
 import { useAuth } from '../../../context/auth';
 import { HOST } from '../../../config';
@@ -10,8 +11,7 @@ const SignIn = (props) => {
 	const [isError, setIsError] = useState(false);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const { setAuthStatus } = useAuth();
-	const { authStatus } = useAuth();
+	const { authStatus, setAuthStatus, chekingSesion } = useAuth();
 
 	const onSubmitHandler = () => {
 		if (!(email === '' || password === '') && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {
@@ -34,6 +34,10 @@ const SignIn = (props) => {
 			alert('Please enter valid details');
 		}
 	};
+
+	if (chekingSesion) {
+		return <Spinner color="info" style={{ width: '3rem', height: '3rem' }} />;
+	}
 
 	if (authStatus) {
 		return <Redirect to="/" />;

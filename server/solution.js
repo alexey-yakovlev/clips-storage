@@ -79,11 +79,23 @@ export default () => {
 	app.use('/api/signUp', signUp);
 	app.use('/api/upload', upload);
 	app.use('/api/clips', clips);
+
+	app.post('/api/isLogged', isAuthenticatedMiddleware, (req, res) => {
+		return res.status(200).json({
+			message: 'User is authenticated',
+		});
+	});
+
 	app.post('/api/logout', (req, res) => {
 		req.logout();
-		return res.status(200).json({
-			message: 'Logout successful',
-		});
+		return res
+			.status(200)
+			.clearCookie('app_sess', {
+				path: '/',
+			})
+			.json({
+				message: 'Logout successful',
+			});
 	});
 
 	if (process.env.NODE_ENV === 'production') {

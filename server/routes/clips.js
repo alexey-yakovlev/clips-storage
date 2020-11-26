@@ -8,7 +8,7 @@ router.delete(
 	'/:id',
 	isAuthenticatedMiddleware,
 	(req, res, next) => {
-		console.log('Request ^^^:', req.method, req.body, req.params);
+		console.log('Request:', req.method, req.body, req.params);
 		next();
 	},
 	deleteClipById

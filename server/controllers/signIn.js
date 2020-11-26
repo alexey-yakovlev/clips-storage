@@ -19,7 +19,6 @@ export const signIn = (req, res, next) => {
 		req.login(user, (err) => {
 			if (err) return next(err);
 			const { id, firstName, lastName } = user;
-			//console.log('*********', req.user, req.session);
 			return res.status(200).json({
 				message: 'Authentication successful',
 				id,

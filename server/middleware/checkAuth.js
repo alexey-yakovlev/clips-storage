@@ -3,5 +3,5 @@ export const isAuthenticatedMiddleware = (req, res, next) => {
 	if (req.isAuthenticated()) {
 		return next();
 	}
-	return res.status(403).json({ message: 'Not authenticated.' });
+	return res.status(403).json({ message: 'User not authenticated.' });
 };
