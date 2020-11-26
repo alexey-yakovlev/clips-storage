@@ -11,7 +11,7 @@
 		"clean": "rimraf dist-server",
 		"build:server": "npm run clean && npm run transpile",
 		"dev:server": "cd client && npm run build && cd .. && npm run start",
-		"start": "npm run build:server && node ./dist-server/server.js",
+		"start": "cd server && mkdir -p media/uploads/image_previews && cd .. && npm run build:server && node ./dist-server/server.js",
 		"heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
 	},
 	"babel": {

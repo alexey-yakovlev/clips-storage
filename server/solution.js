@@ -73,7 +73,11 @@ export default () => {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.use('/clip', isAuthenticatedMiddleware, express.static(`${__dirname}/media/uploads`));
+	app.use(
+		'/clip',
+		isAuthenticatedMiddleware,
+		express.static(`${process.cwd()}/server/media/uploads`)
+	);
 
 	app.use('/api/signIn', signIn);
 	app.use('/api/signUp', signUp);
@@ -123,5 +127,6 @@ export default () => {
 		}
 	});
 
+	console.log('CWD:', process.cwd());
 	return app;
 };
