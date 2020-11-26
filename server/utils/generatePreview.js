@@ -1,7 +1,9 @@
 import { spawn } from 'child_process';
 import { createWriteStream } from 'fs';
 
-const ffmpegPath = '/usr/local/bin/ffmpeg';
+const isDev = process.env.NODE_ENV !== 'production';
+
+const ffmpegPath = isDev ? '/usr/local/bin/ffmpeg' : `${process.cwd()}/vendor/ffmpeg/ffmpeg`;
 const width = 355;
 const height = 200;
 

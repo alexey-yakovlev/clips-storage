@@ -6,7 +6,7 @@ node_modules
 
 /dist-server
 
-/server/media/**/*.jpg
-/server/media/uploads/*.*
+# /server/media/**/*.jpg
+# /server/media/uploads/*.*
 
 .env
